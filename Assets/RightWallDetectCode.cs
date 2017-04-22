@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour {
+public class RightWallDetectCode : MonoBehaviour {
 
 	private PlayerController player;
 
@@ -10,23 +10,15 @@ public class GroundCheck : MonoBehaviour {
 	void Start () {
 		player = this.transform.parent.gameObject.GetComponent<PlayerController> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Debug.Log ("Colidiu");
-		if (other.gameObject.tag == "World" || other.gameObject.tag == "Platform") {
-			player.GotFloor();
-			Debug.Log ("Chegou no chao");
+		if (other.gameObject.tag == "World") {
+			player.GetRightWall ();
 		}
 	}
-
-	void OnTriggerExit2D(Collider2D other){
-		player.ExitFloor ();
-		Debug.Log ("Saiu do chao");
-	}
-
 }

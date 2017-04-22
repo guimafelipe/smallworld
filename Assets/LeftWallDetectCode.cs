@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour {
+public class LeftWallDetectCode : MonoBehaviour {
 
 	private PlayerController player;
 
@@ -17,16 +17,14 @@ public class GroundCheck : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Debug.Log ("Colidiu");
-		if (other.gameObject.tag == "World" || other.gameObject.tag == "Platform") {
-			player.GotFloor();
-			Debug.Log ("Chegou no chao");
+		if (other.gameObject.tag == "World") {
+			player.GetLeftWall ();
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D other){
-		player.ExitFloor ();
-		Debug.Log ("Saiu do chao");
+		if (other.gameObject.tag == "World") {
+			player.ExitLeftWall ();
+		}
 	}
-
 }

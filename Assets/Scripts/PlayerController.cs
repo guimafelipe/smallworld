@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
 	public float hSpeed = 2f;
 	private float vSpeed = 0f;
 
+	private bool onRightWall = false, onLeftWall = false;
+
 	public float jumpSpeed = 10f;
 	public float grav = -10f;
 
@@ -26,9 +28,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	//Simple horizontal moviment function
-	public void doHMovment(){ 
-		transform.position = new Vector3 (transform.position.x + hSpeed * Time.deltaTime * Input.GetAxisRaw ("Horizontal"),
-			transform.position.y, transform.position.z); 
+	public void doHMovment(){
+		float dir = Input.GetAxisRaw ("Horizontal");
+		if ((dir > 0 && !onRightWall) || (dir < 0 && !onLeftWall))
+			transform.position = new Vector3 (transform.position.x + hSpeed * Time.deltaTime * dir,
+				transform.position.y, transform.position.z); 
 	}
 
 	//Simple vartical movment function
@@ -52,7 +56,13 @@ public class PlayerController : MonoBehaviour {
 		canJump = true;
 	}
 
-	public void ExitFloor(){
-		onFloor = false;
-	}
+	public void ExitFloor(){ onFloor = false;}
+
+	public void GetLeftWall(){ onLeftWall = true;}
+
+	public void GetRightWall (){ onRightWall = true;}
+
+	public void ExitLeftWall(){ onLeftWall = false;}
+
+	public void ExitRightWall(){ onRightWall = false;}
 }
