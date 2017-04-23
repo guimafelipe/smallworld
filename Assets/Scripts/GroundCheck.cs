@@ -18,9 +18,13 @@ public class GroundCheck : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		Debug.Log ("Colidiu");
-		if (other.gameObject.tag == "World" || other.gameObject.tag == "Platform") {
-			player.GotFloor();
-			Debug.Log ("Chegou no chao");
+		if (other.gameObject.tag == "World") {
+			player.GotFloor ();
+		} else if (other.gameObject.tag == "Platform") {
+			Debug.Log ("Pisou na plataforma");
+			if (player.GetVSpeed () <= 0) {
+				player.GotFloor ();
+			}
 		}
 	}
 

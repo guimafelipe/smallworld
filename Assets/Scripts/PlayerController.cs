@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void DontLetMove(){ canMove = false;}
 
+	public float GetVSpeed(){ return vSpeed;}
+
 	public void Die(){
 		isDead = true;
 	}
