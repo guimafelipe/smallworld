@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-	private bool onFloor = false;
+	public bool onFloor = false;
 	public bool canJump = false;
 	public bool canMove = false;
 	private bool isSaying = false;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool onRightWall = false, onLeftWall = false;
 
+	public float vVmax = 10f;
 	public float jumpSpeed = 10f;
 	public float grav = -10f;
 	public bool isDead;
@@ -63,11 +64,13 @@ public class PlayerController : MonoBehaviour {
 
 	//Simple vartical movment function
 	public void doVMovment(){
-		
+		if (onFloor)
+			vSpeed = 0;
 		transform.position = new Vector3 (transform.position.x,
 			transform.position.y + vSpeed * Time.deltaTime, transform.position.z);
-		if(!onFloor)
+		if(!onFloor && Mathf.Abs(vSpeed) < vVmax)
 			vSpeed += Time.deltaTime * grav;
+		
 	}
 
 	public void Jump(float _jumpSpeed){
@@ -79,6 +82,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void GotFloor(){
+		Debug.Log ("Chamou got floor");
 		vSpeed = 0f;
 		onFloor = true;
 		canJump = true;
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float GetVSpeed(){ return vSpeed;}
 
+	public bool IsOnFloor(){ return onFloor; }
 	public void Die(){
 		isDead = true;
 	}
