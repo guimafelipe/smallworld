@@ -72,12 +72,16 @@ public class Level1Manager : MonoBehaviour {
 	IEnumerator EndLevel(){
 		//FadeOutAnim
 		yield return new WaitForSeconds(1f);
-		//SceneManager.LoadScene(2);
+		SceneManager.LoadScene(2);
 		yield return 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		if (player.GetComponent<PlayerController> ().isDead) {
+			StartCoroutine (RestartLevel ());
+		}
 
 		if (player.GetComponent<PlayerController> ().isDead) {
 			StartCoroutine (RestartLevel ());

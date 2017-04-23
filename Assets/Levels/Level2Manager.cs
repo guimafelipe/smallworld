@@ -40,7 +40,8 @@ public class Level2Manager : MonoBehaviour {
 	}
 
 	IEnumerator RestartLevel(){
-		//SceneManager.LoadScene (2);
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (2);
 		yield return 0;
 	}
 
@@ -100,10 +101,18 @@ public class Level2Manager : MonoBehaviour {
 		player.GetComponent<PlayerController> ().DontLetMove ();
 		yield return new WaitForSeconds (1f);
 		plot.StartedPlot (4, 8);
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (3);
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+
+		if (player.GetComponent<PlayerController> ().isDead) {
+			StartCoroutine (RestartLevel ());
+		}
+
 		if (exitIntro && !createdFirefly1) {
 			createdFirefly1 = true;
 			StartCoroutine (Spawn1Firefly ());

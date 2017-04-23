@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level3Manager : MonoBehaviour {
 
@@ -68,11 +69,22 @@ public class Level3Manager : MonoBehaviour {
 	}
 
 	IEnumerator EndLevel(){
-		yield return 0f;
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (4);
+	}
+
+	IEnumerator RestartLevel(){
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (3);
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		if (player.GetComponent<PlayerController> ().isDead) {
+			StartCoroutine (RestartLevel ());
+		}
+
 		if (exitIntro && !partnerReachedMoon && !partnerStartedToGo) {
 			StartCoroutine (GoToTheMoon ());
 		}

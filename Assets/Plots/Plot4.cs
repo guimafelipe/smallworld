@@ -27,6 +27,8 @@ public class Plot4 : MonoBehaviour {
 		} 
 		if(currLine > 1)
 			levelmanager.exitIntro = true;
+		if (currLine > 6)
+			levelmanager.canEnd = true;
 		if (currLine == currMaxLine) {
 			Debug.Log ("Entoru aqui");
 			EndedPlot ();

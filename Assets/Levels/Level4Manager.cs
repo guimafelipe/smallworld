@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level4Manager : MonoBehaviour {
 
 	public Plot4 plot;
 	public GameObject player, world, platform, mCamera, partner;
-	public bool exitIntro = false, startedCollapse = false, worldDestroyed = false;
+	public bool exitIntro = false, startedCollapse = false, worldDestroyed = false, canEnd = false;
 
 
 	// Use this for initialization
@@ -61,11 +62,25 @@ public class Level4Manager : MonoBehaviour {
 		//player.GetComponent<PlayerController> ().canMove = true;
 		yield return new WaitForSeconds (1f);
 		plot.StartedPlot (1, 6);
+	}
 
+	IEnumerator RestartLevel(){
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (4);
+	}
+
+	IEnumerator EndLevel(){
+		yield return new WaitForSeconds (1f);
+		SceneManager.LoadScene (0);
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		if (player.GetComponent<PlayerController> ().isDead) {
+			StartCoroutine (RestartLevel ());
+		}
+
 		if (exitIntro && !startedCollapse) {
 			startedCollapse = true;
 			StartCoroutine (Collapse ());
@@ -74,6 +89,11 @@ public class Level4Manager : MonoBehaviour {
 		if (platform.GetComponent<Platform> ().playerReached && !worldDestroyed) {
 			worldDestroyed = true;
 			StartCoroutine (DestroyWorld ());
+		}
+
+		if (canEnd) {
+			canEnd = false;
+			StartCoroutine (EndLevel ());
 		}
 	}
 }

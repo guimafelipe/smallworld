@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour {
 		//if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
 		//	EndLine ();
 		//}
+
+		if (transform.position.y < -6f)
+			Die ();
 	}
 
 	//Simple horizontal moviment function
