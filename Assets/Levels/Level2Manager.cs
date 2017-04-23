@@ -11,7 +11,7 @@ public class Level2Manager : MonoBehaviour {
 	public GameObject fireflyPrefab, platformPrefab;
 	private GameObject firefly, platform1, platform2, platform3;
 	private bool createdPlatform1 = false, createdPlatform2 = false, createdPlatform3 = false;
-	public bool exitIntro = false;
+	public bool exitIntro = false, canEnd = false;
 	private bool createdFirefly1 = false, getFirefly1 = false, createdFirefly2 = false, getFirefly2 = false, createdFirefly3 = false, getFirefly3 = false, createdFirefly4 = false, getFirefly4 = false;
 	private bool startedDestruction = false, plataformsDestroyed = false, levelEnded = false;
 
@@ -97,10 +97,14 @@ public class Level2Manager : MonoBehaviour {
 		plataformsDestroyed = true;
 	}
 
-	IEnumerator EndLevel(){
+	IEnumerator EndLevelNotYet(){
 		player.GetComponent<PlayerController> ().DontLetMove ();
 		yield return new WaitForSeconds (1f);
 		plot.StartedPlot (4, 8);
+
+	}
+
+	IEnumerator EndLevel(){
 		yield return new WaitForSeconds (1f);
 		SceneManager.LoadScene (3);
 	}
@@ -108,6 +112,10 @@ public class Level2Manager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (canEnd) {
+			canEnd = false;
+			StartCoroutine (EndLevel ());
+		}
 
 		if (player.GetComponent<PlayerController> ().isDead) {
 			StartCoroutine (RestartLevel ());
@@ -120,7 +128,7 @@ public class Level2Manager : MonoBehaviour {
 
 		if (plataformsDestroyed && player.GetComponent<PlayerController>().IsOnFloor() && !levelEnded) {
 			levelEnded = true;
-			StartCoroutine (EndLevel());
+			StartCoroutine (EndLevelNotYet());
 		}
 
 		if (getFirefly4 && !startedDestruction) {

@@ -8,10 +8,10 @@ public class Level1Manager : MonoBehaviour {
 	public Plot1 plot;
 	public GameObject player;
 	public GameObject flowerPrefab, miragePrefab;
-	public bool exitIntro = false, endLevel = false; 
+	public bool exitIntro = false, canEnd = false; 
 	public bool gotFlower1 = false, createdFlower1 = false;
 	public bool gotFlower2 = false, createdFlower2 = false;
-	public bool createdMirage = false;
+	public bool createdMirage = false, gotMirage = false;
 	private GameObject flower, spike, mirage;
 	// Use this for initialization
 	void Start () {
@@ -112,10 +112,12 @@ public class Level1Manager : MonoBehaviour {
 			createdMirage = true;
 		}
 
-		if (mirage != null && mirage.GetComponent<MirageBehaviour> ().gotCaught) {
+		if (mirage != null && mirage.GetComponent<MirageBehaviour> ().gotCaught && !gotMirage) {
+			gotMirage = true;
 			StartCoroutine(DestroyMirage ());
 		}
-		if (endLevel) {
+		if (canEnd) {
+			canEnd = false;
 			StartCoroutine (EndLevel ());
 		}
 

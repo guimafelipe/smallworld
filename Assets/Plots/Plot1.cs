@@ -35,8 +35,8 @@ public class Plot1 : MonoBehaviour {
 		} 
 		if(currLine > 9)
 			levelmanager.exitIntro = true;
-		if (currLine > 20)
-			levelmanager.endLevel = true;
+		if (currLine > 21)
+			levelmanager.canEnd = true;
 		if (currLine == currMaxLine) {
 			EndedPlot ();
 			currLine++; //ToCallJustoOneTime;
