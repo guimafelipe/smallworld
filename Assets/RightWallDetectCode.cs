@@ -21,4 +21,11 @@ public class RightWallDetectCode : MonoBehaviour {
 			player.GetRightWall ();
 		}
 	}
+
+	void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.tag == "World") {
+			player.ExitRightWall ();
+		}
+	}
+
 }
