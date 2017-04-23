@@ -2,54 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plot1 : MonoBehaviour {
+public class Plot2 : MonoBehaviour {
 
 	public GameObject player;
-	public GameObject level1manager;
+	public GameObject level2manager;
 	private PlayerController playerController;
-	private Level1Manager levelmanager;
+	private Level2Manager levelmanager;
 	public string[] plot;
-
 	public int currLine = 0, currMaxLine = 50, currMaxInd;
 	private bool isSaying;
-
-	//private int[] parts = { 10, 13, 15, 19, 20 };
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
-		level1manager = GameObject.Find ("Level1Manager");
+		level2manager = GameObject.Find ("Level2Manager");
 		playerController = player.GetComponent<PlayerController> ();
-		levelmanager = level1manager.GetComponent<Level1Manager> ();
+		levelmanager = level2manager.GetComponent<Level2Manager> ();
 		currMaxLine = 50;
-		//currMaxLine = parts [currMaxInd];
-		//BuildPlot();
-		//StartedPlot();
-
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
 			SayPlot (++currLine);
-			//currLine+;
 		} 
-		if(currLine > 9)
+		if(currLine > 4)
 			levelmanager.exitIntro = true;
-		if (currLine > 20)
-			levelmanager.endLevel = true;
 		if (currLine == currMaxLine) {
+			Debug.Log ("Entoru aqui");
 			EndedPlot ();
 			currLine++; //ToCallJustoOneTime;
-			//levelmanager.
-			//currMaxLine = parts [++currMaxInd];
 		}
-	}
-		
-	IEnumerator waitSeconds(float x){
-		yield return new WaitForSeconds(x);
 	}
 
 	public void StartedPlot(int i, int f){
+		Debug.Log("Chamou aqui");
 		isSaying = true;
 		currLine = i;
 		currMaxLine = f;
@@ -57,12 +43,12 @@ public class Plot1 : MonoBehaviour {
 	}
 
 	public void SayPlot(int i){
+		Debug.Log ("Plotou i");
 		player.GetComponent<PlayerController>().SayLine (plot [i]);
 		isSaying = true;
 	}
 
 	public void EndedPlot(){
-		Debug.Log ("Chamou ended plot");
 		isSaying = false;
 		playerController.EndLine ();
 		playerController.canJump = true;

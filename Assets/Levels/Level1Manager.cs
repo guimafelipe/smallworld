@@ -7,7 +7,6 @@ public class Level1Manager : MonoBehaviour {
 
 	public Plot1 plot;
 	public GameObject player;
-	public bool[] partEnded = {false, false, false, false};
 	public GameObject flowerPrefab, miragePrefab;
 	public bool exitIntro = false, endLevel = false; 
 	public bool gotFlower1 = false, createdFlower1 = false;

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool onFloor = false;
 	public bool canJump = false;
-	private bool canMove = false;
+	public bool canMove = false;
 	private bool isSaying = false;
 	public float hSpeed = 2f;
 	private float vSpeed = 0f;
@@ -46,9 +46,9 @@ public class PlayerController : MonoBehaviour {
 		doVMovment ();
 		if(Input.GetKeyDown(KeyCode.W))
 			Jump(jumpSpeed);
-		if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
-			EndLine ();
-		}
+		//if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
+		//	EndLine ();
+		//}
 	}
 
 	//Simple horizontal moviment function
@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void SayLine(string lineToSay){
+		Debug.Log ("Chamou player say line");
 		canMove = false;
 		canJump = false;
 		isSaying = true;
@@ -113,8 +114,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void EndLine(){
-		canMove = true;
-		canJump = true;
+		Debug.Log ("Chamou player end line");
 		isSaying = false;
 		dialogueBaloon.GetComponent<Image> ().enabled = false;
 		dialogueText.GetComponent<Text> ().enabled = false;
