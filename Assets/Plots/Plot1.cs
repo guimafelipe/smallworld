@@ -35,10 +35,13 @@ public class Plot1 : MonoBehaviour {
 		} 
 		if(currLine > 9)
 			levelmanager.exitIntro = true;
+		if (currLine > 20)
+			levelmanager.endLevel = true;
 		if (currLine == currMaxLine) {
 			EndedPlot ();
+			currLine++; //ToCallJustoOneTime;
 			//levelmanager.
-			currMaxLine = parts [++currMaxInd];
+			//currMaxLine = parts [++currMaxInd];
 		}
 	}
 		
@@ -70,9 +73,10 @@ public class Plot1 : MonoBehaviour {
 		plot [20] = "Even a small world is full of dellusions.";
 	}*/
 
-	public void StartedPlot(int i){
+	public void StartedPlot(int i, int f){
 		isSaying = true;
 		currLine = i;
+		currMaxLine = f;
 		playerController.SayLine (plot[currLine]);
 	}
 

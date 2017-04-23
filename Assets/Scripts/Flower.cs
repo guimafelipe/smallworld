@@ -7,7 +7,7 @@ public class Flower : MonoBehaviour {
 	public bool gotCaught;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		gotCaught = false;
 	}
 	

@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
 	private bool onFloor = false;
-	private bool canJump = false;
+	public bool canJump = false;
 	private bool canMove = false;
 	private bool isSaying = false;
 	public float hSpeed = 2f;
 	private float vSpeed = 0f;
 
+
 	private bool onRightWall = false, onLeftWall = false;
 
 	public float jumpSpeed = 10f;
 	public float grav = -10f;
+	public bool isDead;
 
 	[SerializeField]
 	private RectTransform dialogueBaloon;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		isDead = false;
 		if (dialogueBaloon == null) {
 			Debug.Log ("No dialogue baloon");
 		}
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour {
 			canJump = false;
 		}
 	}
+
 	public void GotFloor(){
 		vSpeed = 0f;
 		onFloor = true;
@@ -93,6 +97,11 @@ public class PlayerController : MonoBehaviour {
 	public void LetMove(){ canMove = true;}
 
 	public void DontLetMove(){ canMove = false;}
+
+	public void Die(){
+		isDead = true;
+	}
+
 
 	public void SayLine(string lineToSay){
 		canMove = false;

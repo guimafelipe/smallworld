@@ -25,8 +25,10 @@ public class GroundCheck : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other){
-		player.ExitFloor ();
-		Debug.Log ("Saiu do chao");
+		if (other.gameObject.tag == "World" || other.gameObject.tag == "Platform") {
+			player.ExitFloor ();
+			Debug.Log ("Saiu do chao");
+		}
 	}
 
 }
