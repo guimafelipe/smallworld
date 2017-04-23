@@ -5,48 +5,43 @@ using UnityEngine;
 public class Plot1 : MonoBehaviour {
 
 	public GameObject player;
+	public GameObject level1manager;
 	private PlayerController playerController;
+	private Level1Manager levelmanager;
 	public string[] plot;
 
-	private int currLine = 0, currMaxLine, currMaxInd;
+	public int currLine = 0, currMaxLine, currMaxInd;
 	private bool isSaying;
 
 	private int[] parts = { 10, 13, 15, 19, 20 };
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
+		level1manager = GameObject.Find ("Level1Manager");
 		playerController = player.GetComponent<PlayerController> ();
-		//plot = new string[21];
+		levelmanager = level1manager.GetComponent<Level1Manager> ();
 		currMaxInd = 0;
 		currMaxLine = parts [currMaxInd];
 		//BuildPlot();
-		//StartCoroutine (PlotScript1 ());
-		StartedPlot();
+		//StartedPlot();
 
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
-			SayPlot (currLine);
-			currLine++;
+			SayPlot (++currLine);
+			//currLine+;
 		} 
+		if(currLine > 9)
+			levelmanager.exitIntro = true;
 		if (currLine == currMaxLine) {
 			EndedPlot ();
+			//levelmanager.
 			currMaxLine = parts [++currMaxInd];
 		}
 	}
-
-	IEnumerator PlotScript1(){
-		Debug.Log ("Startou");
-		for (int i = 0; i < 10; i++) {
-			SayPlot (i);
-			yield return new WaitForSeconds (0.5f);
-
-		}
-		yield return new WaitForSeconds (0.5f);
-	}
-
+		
 	IEnumerator waitSeconds(float x){
 		yield return new WaitForSeconds(x);
 	}
@@ -75,17 +70,18 @@ public class Plot1 : MonoBehaviour {
 		plot [20] = "Even a small world is full of dellusions.";
 	}*/
 
-	void StartedPlot(){
+	public void StartedPlot(int i){
 		isSaying = true;
+		currLine = i;
 		playerController.SayLine (plot[currLine]);
 	}
 
-	void SayPlot(int i){
-		playerController.SayLine (plot [i]);
+	public void SayPlot(int i){
+		player.GetComponent<PlayerController>().SayLine (plot [i]);
 		isSaying = true;
 	}
 
-	void EndedPlot(){
+	public void EndedPlot(){
 		isSaying = false;
 		playerController.EndLine ();
 	}
