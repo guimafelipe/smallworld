@@ -8,8 +8,10 @@ public class Firefly : MonoBehaviour {
 	public bool gotCaught = false, hasExpired = false;
 	float timeLife = 3f;
 
+	private AudioManager audiomanager;
 	// Use this for initialization
 	void Start () {
+		audiomanager = AudioManager.instance;
 		timeLife = 3f;
 	}
 	
@@ -23,8 +25,10 @@ public class Firefly : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.transform.parent) {
-			if(other.gameObject.transform.parent.tag == "Player")
+			if (other.gameObject.transform.parent.tag == "Player") {
+				audiomanager.PlaySound ("Pickup");
 				gotCaught = true;
+			}
 		}
 	}
 }

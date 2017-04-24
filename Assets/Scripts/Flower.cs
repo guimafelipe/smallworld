@@ -5,9 +5,10 @@ using UnityEngine;
 public class Flower : MonoBehaviour {
 
 	public bool gotCaught;
-
+	private AudioManager audiomanager;
 	// Use this for initialization
 	void Awake () {
+		audiomanager = AudioManager.instance;
 		gotCaught = false;
 	}
 	
@@ -18,8 +19,10 @@ public class Flower : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.transform.parent) {
-			if(other.gameObject.transform.parent.tag == "Player")
+			if (other.gameObject.transform.parent.tag == "Player") {
 				gotCaught = true;
+				audiomanager.PlaySound ("Pickup");
+			}
 		}
 	}
 }

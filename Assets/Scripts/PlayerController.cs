@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	public float hSpeed = 2f;
 	private float vSpeed = 0f;
 
+	private AudioManager audioManager;
 	private Animator animator;
 	[SerializeField]
 	private GameObject graphics;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isDead = false;
+		audioManager = AudioManager.instance;
 		if (dialogueBaloon == null) {
 			Debug.Log ("No dialogue baloon");
 		}
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void Jump(float _jumpSpeed){
 		if (canJump && canMove) {
+			audioManager.PlaySound ("Jump");
 			vSpeed = _jumpSpeed;
 			onFloor = false;
 			canJump = false;
@@ -125,6 +128,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool IsOnFloor(){ return onFloor; }
 	public void Die(){
+		audioManager.PlaySound ("Morte");
 		DontLetMove ();
 		isDead = true;
 	}
