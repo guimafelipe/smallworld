@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool IsOnFloor(){ return onFloor; }
 	public void Die(){
+		DontLetMove ();
 		isDead = true;
 	}
 

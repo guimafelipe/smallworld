@@ -18,6 +18,8 @@ public class Level1Manager : MonoBehaviour {
 		//Stard fade in effect
 		plot = GameObject.Find("Plot1").GetComponent<Plot1>();
 		player = GameObject.Find("Player");
+		spike = GameObject.Find ("Spike");
+		spike.SetActive (false);
 		plot.currLine = 0;
 		StartCoroutine (StartFirstPlot ());
 		//plot.StartedPlot ();
@@ -45,6 +47,7 @@ public class Level1Manager : MonoBehaviour {
 		yield return new WaitForSeconds (1.5f);
 		flower = Instantiate (flowerPrefab, new Vector3 (-4.7f, -1f, 0f), Quaternion.identity);
 		createdFlower2 = true;
+		spike.SetActive (true);
 		plot.StartedPlot (14, 16);
 	}
 
