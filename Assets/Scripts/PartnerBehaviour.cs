@@ -12,6 +12,10 @@ public class PartnerBehaviour : MonoBehaviour {
 	private float vSpeed = 0f;
 
 
+	private Animator animator;
+	[SerializeField]
+	private GameObject graphics;
+
 	private bool onRightWall = false, onLeftWall = false;
 
 	public float vVmax = 10f;
@@ -21,7 +25,7 @@ public class PartnerBehaviour : MonoBehaviour {
 	public bool isDead;
 	// Use this for initialization
 	void Start () {
-		
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -31,8 +35,18 @@ public class PartnerBehaviour : MonoBehaviour {
 	}
 
 	public void doHMovment(float dir){
-			transform.position = new Vector3 (transform.position.x + hSpeed * Time.deltaTime * dir,
-				transform.position.y, transform.position.z); 
+		transform.position = new Vector3 (transform.position.x + hSpeed * Time.deltaTime * dir,
+			transform.position.y, transform.position.z); 
+		if (dir < 0) {
+			animator.SetBool ("isWalking", true);
+			graphics.GetComponent<SpriteRenderer> ().flipX = true;
+		} else if (dir > 0) {
+			animator.SetBool ("isWalking", true);
+			graphics.GetComponent<SpriteRenderer> ().flipX = false;
+		} else {
+			animator.SetBool ("isWalking", false);
+		}
+			
 	}
 
 	public void doVMovment(){
@@ -49,11 +63,12 @@ public class PartnerBehaviour : MonoBehaviour {
 	public void Jump(float _jumpSpeed){
 		vSpeed = _jumpSpeed;
 		onFloor = false;
+		animator.SetBool ("isJumping", true);
 		Debug.Log ("pulei");
 	}
 
 	public void GotFloor(){
-		//Debug.Log ("Chamou got floor");
+		animator.SetBool ("isJumping", false);
 		vSpeed = 0f;
 		onFloor = true;
 		canJump = true;
