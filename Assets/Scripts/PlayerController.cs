@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
 	public float hSpeed = 2f;
 	private float vSpeed = 0f;
 
+	private Animator animator;
+	[SerializeField]
+	private GameObject graphics;
 
 	private bool onRightWall = false, onLeftWall = false;
 
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log ("No dialogue text");
 		}
 
+		animator = this.GetComponent<Animator> ();
 		dialogueBaloon.GetComponent<Image> ().enabled = false;
 		dialogueText.GetComponent<Text> ().enabled = false;
 
@@ -45,11 +49,10 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		doHMovment ();
 		doVMovment ();
-		if(Input.GetKeyDown(KeyCode.W))
+		if(Input.GetKeyDown(KeyCode.W)){
+			//Debug.Log ("Leu que pulou");
 			Jump(jumpSpeed);
-		//if (isSaying && Input.GetKeyDown (KeyCode.Space)) {
-		//	EndLine ();
-		//}
+		}
 
 		if (transform.position.y < -6f)
 			Die ();
@@ -57,12 +60,23 @@ public class PlayerController : MonoBehaviour {
 
 	//Simple horizontal moviment function
 	public void doHMovment(){
-		if (!canMove) 
+		if (!canMove) {
+			animator.SetBool ("isWalking", false);
 			return;
+		}
 		float dir = Input.GetAxisRaw ("Horizontal");
-		if ((dir > 0 && !onRightWall) || (dir < 0 && !onLeftWall))
+		if ((dir > 0 && !onRightWall) || (dir < 0 && !onLeftWall)) {
 			transform.position = new Vector3 (transform.position.x + hSpeed * Time.deltaTime * dir,
 				transform.position.y, transform.position.z); 
+			animator.SetBool ("isWalking", true);
+			if (dir < 0) {
+				graphics.GetComponent<SpriteRenderer> ().flipX = true;
+			} else {
+				graphics.GetComponent<SpriteRenderer> ().flipX = false;
+			}
+		} else {
+			animator.SetBool ("isWalking", false);
+		}
 	}
 
 	//Simple vartical movment function
@@ -81,11 +95,13 @@ public class PlayerController : MonoBehaviour {
 			vSpeed = _jumpSpeed;
 			onFloor = false;
 			canJump = false;
+			animator.SetBool ("isJumping", true);
 		}
 	}
 
 	public void GotFloor(){
 		//Debug.Log ("Chamou got floor");
+		animator.SetBool("isJumping", false);
 		vSpeed = 0f;
 		onFloor = true;
 		canJump = true;
