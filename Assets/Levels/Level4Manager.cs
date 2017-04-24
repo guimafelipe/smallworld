@@ -41,7 +41,7 @@ public class Level4Manager : MonoBehaviour {
 		player.GetComponent<PlayerController> ().canMove = true;
 		yield return new WaitForSeconds (0.5f);
 		partner.GetComponent<PartnerBehaviour> ().SetMovDir (-1);
-		yield return new WaitForSeconds (0.3f);
+		yield return new WaitForSeconds (0.8f);
 		partner.GetComponent<PartnerBehaviour> ().Jump (5f);
 		yield return new WaitForSeconds (0.7f);
 		partner.GetComponent<PartnerBehaviour> ().SetMovDir (0);
@@ -51,10 +51,13 @@ public class Level4Manager : MonoBehaviour {
 	IEnumerator DestroyWorld(){
 		partner.GetComponent<PartnerBehaviour> ().SetMovDir (0);
 		partner.GetComponentInChildren<Collider2D> ().enabled = false;
-		player.GetComponent<PlayerController> ().DontLetMove ();
+		//if(!platform.GetComponent<Platform> ().playerReached)
+			player.GetComponent<PlayerController> ().DontLetMove ();
 		world.SetActive (false);
+		if (!platform.GetComponent<Platform> ().playerReached)
+			player.GetComponent<PlayerController> ().ExitFloor ();
 		Debug.Log ("desativou mundo");
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (3f);
 		world.SetActive (true);
 		yield return new WaitForSeconds (1f);
 		platform.SetActive (false);
@@ -86,7 +89,7 @@ public class Level4Manager : MonoBehaviour {
 			StartCoroutine (Collapse ());
 		}
 
-		if (platform.GetComponent<Platform> ().playerReached && !worldDestroyed) {
+		if ((platform.GetComponent<Platform> ().playerReached || platform.GetComponent<Platform>().partnerReached) && !worldDestroyed) {
 			worldDestroyed = true;
 			StartCoroutine (DestroyWorld ());
 		}

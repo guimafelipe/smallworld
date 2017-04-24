@@ -47,39 +47,39 @@ public class Level2Manager : MonoBehaviour {
 
 	IEnumerator SpawnPlatform1(){
 		yield return new WaitForSeconds (0.5f);
-		platform1 = Instantiate (platformPrefab, new Vector3 (-4f, -1f, 0f), Quaternion.identity);
+		platform1 = Instantiate (platformPrefab, new Vector3 (-4f, -1.5f, 0f), Quaternion.identity);
 	}
 
 	IEnumerator SpawnFirefly2(){
 		player.GetComponent<PlayerController> ().canMove = false;
 		yield return new WaitForSeconds(1f);
-		firefly = Instantiate (fireflyPrefab, new Vector3 (-4f, 1f, 0f), Quaternion.identity);
+		firefly = Instantiate (fireflyPrefab, new Vector3 (-4f, 0.5f, 0f), Quaternion.identity);
 		createdFirefly2 = true;
 		player.GetComponent<PlayerController> ().canMove = true;
 	}
 
 	IEnumerator SpawnPlatform2(){
 		yield return new WaitForSeconds (0.5f);
-		platform2 = Instantiate (platformPrefab, new Vector3 (0f, 0f, 0f), Quaternion.identity);
+		platform2 = Instantiate (platformPrefab, new Vector3 (0f, -0.5f, 0f), Quaternion.identity);
 	}
 
 	IEnumerator SpawnFirefly3(){
 		player.GetComponent<PlayerController> ().canMove = false;
 		yield return new WaitForSeconds(1f);
-		firefly = Instantiate (fireflyPrefab, new Vector3 (0f, 2f, 0f), Quaternion.identity);
+		firefly = Instantiate (fireflyPrefab, new Vector3 (0f, 1.5f, 0f), Quaternion.identity);
 		createdFirefly3 = true;
 		player.GetComponent<PlayerController> ().canMove = true;
 	}
 
 	IEnumerator SpawnPlatform3(){
 		yield return new WaitForSeconds (0.5f);
-		platform3 = Instantiate (platformPrefab, new Vector3 (4f, 1f, 0f), Quaternion.identity);
+		platform3 = Instantiate (platformPrefab, new Vector3 (4f, 0.5f, 0f), Quaternion.identity);
 	}
 
 	IEnumerator SpawnFirefly4(){
 		player.GetComponent<PlayerController> ().canMove = false;
 		yield return new WaitForSeconds(1f);
-		firefly = Instantiate (fireflyPrefab, new Vector3 (4f, 2.5f, 0f), Quaternion.identity);
+		firefly = Instantiate (fireflyPrefab, new Vector3 (4f, 2f, 0f), Quaternion.identity);
 		createdFirefly3 = true;
 		player.GetComponent<PlayerController> ().canMove = true;
 	}
