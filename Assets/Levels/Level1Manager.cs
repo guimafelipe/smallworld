@@ -62,7 +62,7 @@ public class Level1Manager : MonoBehaviour {
 		yield return new WaitForSeconds (1.5f);
 		createdMirage = true;
 		plot.StartedPlot (16, 20);
-		mirage = Instantiate (miragePrefab, new Vector3 (1f, 1f, 0f), Quaternion.identity);
+		mirage = Instantiate (miragePrefab, new Vector3 (3f, 0.5f, 0f), Quaternion.identity);
 	}
 
 	IEnumerator DestroyMirage(){
