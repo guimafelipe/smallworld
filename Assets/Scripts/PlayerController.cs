@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isDead = false;
+		onFloor = false;
 		audioManager = AudioManager.instance;
 		if (dialogueBaloon == null) {
 			Debug.Log ("No dialogue baloon");
@@ -127,10 +128,13 @@ public class PlayerController : MonoBehaviour {
 	public float GetVSpeed(){ return vSpeed;}
 
 	public bool IsOnFloor(){ return onFloor; }
+
 	public void Die(){
-		audioManager.PlaySound ("Morte");
-		DontLetMove ();
-		isDead = true;
+		if (!isDead) {
+			audioManager.PlaySound ("Morte");
+			DontLetMove ();
+			isDead = true;
+		}
 	}
 
 
